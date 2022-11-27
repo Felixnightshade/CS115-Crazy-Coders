@@ -32,6 +32,7 @@ def main():
         On “m” call mostLikesUser and print the result
         On “q” call saveDatabase then break
     """
+    pass
 
 
 def loadDatabase(filename: str = "musicrecplus.txt") -> dict:
@@ -115,3 +116,6 @@ Format is “UserName:Artist1,Artist2,Artist3, . . .”
 Because we load the entire database every run, 
 overwrite the existing database instead of appending when saving.
 """
+
+if __name__ == "__main__":
+    main()
