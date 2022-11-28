@@ -13,8 +13,9 @@ Team: Crazy Coders
 
 def main():
     """Where the main loop is run -Marcus"""
+    """"""
 
-    userDict = loadDataBase("musicrecplus_ex2_a.txt")
+    database = loadDatabase()
 
     while True:
         option = input(
@@ -34,9 +35,9 @@ def main():
         elif option == "r":
             pass
         elif option == "p":
-            print(mostPopular(userDict))
+            print(mostPopular(database))
         elif option == "h":
-            print(howPopular(userDict))
+            print(howPopular(database))
         elif option == "m":
             pass
         elif option == "q":
@@ -45,36 +46,43 @@ def main():
             print("That is not an option.")
 
 
-def loadDataBase(filename):
+def loadDatabase(filename: str = "musicrecplus.txt") -> dict:
+    """
+    Takes in file name to read database from.
+    Returns dict with format {UserName: (Artist1, Artist2, Artist3)}
+    -Gabriel
+    """
     """loads the database from the file named musicrecplus.txt,
     if it exists. Otherwise it creates the file. Checks if user is
     in the database, if not it adds to database along with their preferences- Marcus"""
-    myfile = open(filename, "r")
+
     database = {}
-    name = input(
-        "Enter your name (put a $ symbol after your name if you wish your preferences to remain private): \n"
-    )
-    for x in myfile:
-        [userName, artists] = x.strip().split(":")
-        # seperates contents of file into userName list and artists list
-        artistList = artists.split(",")
-        # creates an artistList of each artist that are seperated by commas
-        artistList.sort()
-        database[userName] = artistList
-        # assigns username as key and artistlist as value in the database dictionary
-    myfile.close()
+    ## Handle the user name outside of this function
+    # name = input(
+    #     "Enter your name (put a $ symbol after your name if you wish your preferences to remain private): \n"
+    # )
+    with open(filename, "r") as file:
+        for line in file:
+            [userName, artists] = line.strip().split(":")
+            # seperates contents of file into userName list and artists list
+            artistList = artists.split(",")
+            # creates an artistList of each artist that are seperated by commas
+            artistList.sort()
+            database[userName] = artistList
+            # assigns username as key and artistlist as value in the database dictionary
     aList = []
-    if name not in database:
-        # if the user is not already in the database, it asks for their preferences
-        while True:
-            artist = input("Enter an artist that you like (Enter to finish): \n")
-            if artist != "":
-                aList.append(artist.title())
-            else:
-                break
-        aList.sort()
-        database[name] = aList
-        # adds the new user and their preferences to dictionary
+    ## Handle the user name outside of this function
+    # if name not in database:
+    #     # if the user is not already in the database, it asks for their preferences
+    #     while True:
+    #         artist = input("Enter an artist that you like (Enter to finish): \n")
+    #         if artist != "":
+    #             aList.append(artist.title())
+    #         else:
+    #             break
+    #     aList.sort()
+    #     database[name] = aList
+    #     # adds the new user and their preferences to dictionary
     return database
 
 
