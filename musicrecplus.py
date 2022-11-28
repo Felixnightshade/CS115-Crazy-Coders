@@ -51,7 +51,7 @@ def main():
             print("That is not an option.")
 
 
-def loadDatabase(filename: str = "/Users/SamFriedman/Downloads/GroupProject/musicrecplus_ex2_a.txt") -> dict:
+def loadDatabase(filename: str = "musicrecplus.txt") -> dict:
     """
     Takes in file name to read database from.
     Returns dict with format {UserName: (Artist1, Artist2, Artist3)}
@@ -130,9 +130,13 @@ def enterPreferences() -> tuple:
     -Gabriel
     """
     preferences = []
-    while artist := input("Enter an artist that you like (Enter to finish):\n") != "":
-        preferences.append(artist.title())
-    return tuple(preferences.sort())
+    while (artist := input("Enter an artist that you like (Enter to finish):\n")) != "":
+        if artist.title() not in preferences:
+            preferences.append(artist.title())
+        else:
+            print(f"You already added {artist} to your likes.")
+    preferences.sort()
+    return tuple(preferences)
 
 
 def mostLikesUser(database: dict) -> str:
@@ -146,7 +150,7 @@ def mostLikesUser(database: dict) -> str:
     # iterates through database
     for user in database:
         # if user has $ dont do this
-        if '$' in user:
+        if "$" in user:
             continue
         # appends number of liked songs to dictionary with username as key
         user_likes[user] = len(database[user])
@@ -154,7 +158,7 @@ def mostLikesUser(database: dict) -> str:
     for user in user_likes:
         # if user_likes value is the number of likes and does not include $, print it
         if user_likes[user] == max(user_likes.values()):
-             print(user)
+            print(user)
 
 
 def saveDatabase(database: dict, filename: str) -> None:
