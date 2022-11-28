@@ -16,6 +16,11 @@ def main():
     """"""
 
     database = loadDatabase()
+    username = input(
+        "Enter your name (put a $ symbol after your name if you wish your preferences to remain private):\n"
+    )
+    if username not in database:
+        database[username] = enterPreferences()
 
     while True:
         option = input(
@@ -31,7 +36,7 @@ def main():
         )
 
         if option == "e":
-            pass
+            database[username] = enterPreferences()
         elif option == "r":
             pass
         elif option == "p":
@@ -57,10 +62,6 @@ def loadDatabase(filename: str = "musicrecplus.txt") -> dict:
     in the database, if not it adds to database along with their preferences- Marcus"""
 
     database = {}
-    ## Handle the user name outside of this function
-    # name = input(
-    #     "Enter your name (put a $ symbol after your name if you wish your preferences to remain private): \n"
-    # )
     with open(filename, "r") as file:
         for line in file:
             [userName, artists] = line.strip().split(":")
@@ -70,19 +71,6 @@ def loadDatabase(filename: str = "musicrecplus.txt") -> dict:
             artistList.sort()
             database[userName] = artistList
             # assigns username as key and artistlist as value in the database dictionary
-    aList = []
-    ## Handle the user name outside of this function
-    # if name not in database:
-    #     # if the user is not already in the database, it asks for their preferences
-    #     while True:
-    #         artist = input("Enter an artist that you like (Enter to finish): \n")
-    #         if artist != "":
-    #             aList.append(artist.title())
-    #         else:
-    #             break
-    #     aList.sort()
-    #     database[name] = aList
-    #     # adds the new user and their preferences to dictionary
     return database
 
 
@@ -135,8 +123,16 @@ def howPopular(userDict):
     return a
 
 
-def enterPreferences():
-    """guides user to enter their preferences"""
+def enterPreferences() -> tuple:
+    """
+    Takes in nothing.
+    Returns the tuple of the entered preferences.
+    -Gabriel
+    """
+    preferences = []
+    while artist := input("Enter an artist that you like (Enter to finish):\n") != "":
+        preferences.append(artist.title())
+    return tuple(preferences.sort())
 
 
 def highestPopularity(database: dict) -> int:
