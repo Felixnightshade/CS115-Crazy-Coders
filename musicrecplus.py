@@ -51,7 +51,7 @@ def main():
             print("That is not an option.")
 
 
-def loadDatabase(filename: str = "musicrecplus.txt") -> dict:
+def loadDatabase(filename: str = "/Users/SamFriedman/Downloads/GroupProject/musicrecplus_ex2_a.txt") -> dict:
     """
     Takes in file name to read database from.
     Returns dict with format {UserName: (Artist1, Artist2, Artist3)}
@@ -113,7 +113,7 @@ def mostPopular(userDict):
     return a
 
 
-def howPopular(userDict):
+def highestPopularity(userDict):
     """returns how popular the most popular artist is. -Marcus"""
     x = mostPopularHelper(userDict)[0]
     a = ""
@@ -133,15 +133,6 @@ def enterPreferences() -> tuple:
     while artist := input("Enter an artist that you like (Enter to finish):\n") != "":
         preferences.append(artist.title())
     return tuple(preferences.sort())
-
-
-def highestPopularity(database: dict) -> int:
-    """
-    Takes in a database dict.
-    Returns the popularity of the artist with the most likes.
-    """
-    # TODO Implement highestPopularity
-    pass
 
 
 def mostLikesUser(database: dict) -> str:
