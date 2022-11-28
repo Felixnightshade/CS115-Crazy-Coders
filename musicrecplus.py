@@ -42,7 +42,7 @@ def main():
         elif option == "p":
             print(mostPopular(database))
         elif option == "h":
-            print(howPopular(database))
+            print(highestPopularity(database))
         elif option == "m":
             mostLikesUser(database)
         elif option == "q":
