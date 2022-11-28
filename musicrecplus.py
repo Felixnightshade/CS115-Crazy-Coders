@@ -12,46 +12,65 @@ Team: Crazy Coders
 
 
 def main():
-    """
-    Call loadDatabase and assign it to a variable
-    Ask the user for a name, assign it to a variable, and handle it according to the directions.
-    While True:
-        Print EXACTLY…
-        Enter a letter to choose an option:
-        e - Enter preferences
-        r - Get recommendations
-        p - Show most popular artists
-        h - How popular is the most popular
-        m - Which user has the most likes
-        q - Save and quit
+    '''Where the main loop is run - Marcus'''
 
-        On “e” call enterPreferences and assign the result to the dict element corresponding to the current user. Ie. database[username] = enterPreferences
-        On “r” call recommendations and print the results
-        On “p” call popular and print the results
-        On “h” call highestPopularity and print the result
-        On “m” call mostLikesUser and print the result
-        On “q” call saveDatabase then break
-    """
-    pass
+    userDict = loadDataBase('musicrecplus_ex1.txt')
+    
+    while True:
+        option = input('Enter a letter to choose an option:' + '\n' + '\t' + 'e - enter preferences' + '\n' + '\t' 'r - get recommendations' + '\n' + '\t' \
+           + 'p - show most popular artists'  + '\n' + '\t' + 'h - how popular is the most popular' + \
+           '\n' + '\t' + 'm - which user has the most likes ' + '\n' + '\t' + 'q - save and quit')
 
-
-def loadDatabase(filename: str = "musicrecplus.txt") -> dict:
-    """
-    Takes in file name to read database from.
-    Returns dict with format {UserName: (Artist1, Artist2, Artist3)}
-    """
-    # TODO Implement loadDatabase
-    pass
+        if option == 'e':
+            pass
+        if option =='r':
+            pass
+            
+        if option == 'p':
+           pass
+        
+        if option == 'h':
+            pass
+            
+        if option == 'm':
+            pass
+            
+        if option == 'q':
+            return None
+        
+        if option not in ['e', 'r', 'p', 'h', 'm', 'q']:
+            print("That is not an option.")
 
 
-def enterPreferences(username: str):
-    """
-    Takes in username.
-    Returns ???
-    """
-    # TODO Plan enterPreferences
-    # TODO Implement enterPreferences
-    pass
+def loadDataBase(filename):
+    '''loads the database from the file named musicrecplus.txt,
+    if it exists. Otherwise it creates the file. Checks if user is
+    in the database, if not it adds to database along with their preferences- Marcus'''
+    myfile = open(filename, "r")
+    database = {}
+    name = input('Enter your name (put a $ symbol after your name if you wish your preferences to remain private): \n')
+    for x in myfile:
+        [userName, artists] = x.strip().split(':')
+        #seperates contents of file into userName list and artists list
+        artistList = artists.split(',')
+        #creates an artistList of each artist that are seperated by commas
+        artistList.sort()
+        database[userName] = artistList
+        #assigns username as key and artistlist as value in the database dictionary
+    myfile.close()
+    aList=[]
+    if name not in database:
+        #if the user is not already in the database, it asks for their preferences
+        while True:
+            artist = input('Enter an artist that you like (Enter to finish): \n')
+            if artist != '':
+                aList.append(artist.title())
+            else:
+                break
+        aList.sort()
+        database[name]=aList
+        #adds the new user and their preferences to dictionary
+    return database
 
 
 def recommendations(username: str, database: dict) -> tuple:
