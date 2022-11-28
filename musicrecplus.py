@@ -51,7 +51,7 @@ def main():
             print("That is not an option.")
 
 
-def loadDatabase(filename: str = "/Users/SamFriedman/Downloads/GroupProject/musicrecplus_ex2_a.txt") -> dict:
+def loadDatabase(filename: str = "musicrecplus.txt") -> dict:
     """
     Takes in file name to read database from.
     Returns dict with format {UserName: (Artist1, Artist2, Artist3)}
@@ -154,15 +154,16 @@ def mostLikesUser(database: dict) -> str:
     user_likes = {}
     # iterates through database
     for user in database:
+        # if user has $ dont do this
+        if '$' in user:
+            continue
         # appends number of liked songs to dictionary with username as key
         user_likes[user] = len(database[user])
-    # iterates through the max number of likes to 1
-    for number_likes in reversed(range (0, max(user_likes.values()) + 1)):
-        # iterates through user_likes
-        for user in user_likes:
-            # if user_likes value is the number of likes and does not include $, print it
-            if user_likes[user] == number_likes and '$' not in user:
-                 print(user)
+    # iterates through user_likes
+    for user in user_likes:
+        # if user_likes value is the number of likes and does not include $, print it
+        if user_likes[user] == max(user_likes.values()):
+             print(user)
 
 
 def saveDatabase(database: dict, filename: str) -> None:
