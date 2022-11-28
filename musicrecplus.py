@@ -12,14 +12,14 @@ Team: Crazy Coders
 
 
 def main():
-    '''Where the main loop is run - Marcus'''
+    '''Where the main loop is run -Marcus'''
 
-    userDict = loadDataBase('musicrecplus_ex1.txt')
+    userDict = loadDataBase('musicrecplus_ex2_a.txt')
     
     while True:
         option = input('Enter a letter to choose an option:' + '\n' + '\t' + 'e - enter preferences' + '\n' + '\t' 'r - get recommendations' + '\n' + '\t' \
            + 'p - show most popular artists'  + '\n' + '\t' + 'h - how popular is the most popular' + \
-           '\n' + '\t' + 'm - which user has the most likes ' + '\n' + '\t' + 'q - save and quit')
+           '\n' + '\t' + 'm - which user has the most likes ' + '\n' + '\t' + 'q - save and quit' +'\n')
 
         if option == 'e':
             pass
@@ -27,10 +27,10 @@ def main():
             pass
             
         if option == 'p':
-           pass
+           print(mostPopular(userDict))
         
         if option == 'h':
-            pass
+            print(howPopular(userDict))
             
         if option == 'm':
             pass
@@ -81,23 +81,46 @@ def recommendations(username: str, database: dict) -> tuple:
     # TODO Implement recommendations
     pass
 
+def mostPopularHelper(userDict):
+    '''returns the artist that occurs in users preferences the most. Is a helper for
+    most popular function -Marcus'''
+    artistPopularity = {}
+    for x in userDict:
+        if x[-1] != '$':
+            #excludes users who are private
+            for i in userDict[x]:
+                if i not in artistPopularity:
+                    artistPopularity[i] = 1
+                    #if artist is not in the dictionary, it adds one instance to the new dictionary
+                else:
+                    artistPopularity[i] +=1
+                    #if artist is already in dictionary, value of 1 is added to the artist count
+    return sorted(artistPopularity.items(),key=lambda x:x[1],reverse=True)
+    #returns a list sorted by value from greatest to least, so most popular artist will be at index 0, least will be at the end
 
-def popularity(artist: str, database: dict) -> int:
-    """
-    Takes in an artist name and database dict.
-    Returns the number of users that liked the artist.
-    """
-    # TODO Implement popularity
-    pass
+def mostPopular(userDict):
+    '''returns the top 3 artists that appear in users preferences. -Marcus'''
+    mostPop = mostPopularHelper(userDict)[:3]
+    a=''
+    #takes the top 3 most popular artists
+    for x in mostPop:
+        if x =='':
+            a = 'Sorry, no artists found'
+        a += (str(x[0])+'\n')
+    return a
 
+def howPopular(userDict):
+    '''returns how popular the most popular artist is. -Marcus'''
+    x = mostPopularHelper(userDict)[0]
+    a=''
+    if x=='':
+        a = 'Sorry, no artists found'
+    a = str(x[1])
+    return a
 
-def popular(database: dict) -> tuple:
-    """
-    Takes in a database dict.
-    Returns a tuple of the top 3 most liked artists.
-    """
-    # TODO Implement popular
-    pass
+def enterPreferences():
+    '''guides user to enter their preferences
+    '''
 
 
 def highestPopularity(database: dict) -> int:
