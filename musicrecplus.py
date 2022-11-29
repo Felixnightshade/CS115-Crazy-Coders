@@ -9,7 +9,7 @@ Pledge:    I pledge my honor that I have abided by the Stevens Honor System
 CS115 - Group Project
 Team: Crazy Coders
 """
-
+from pathlib import Path
 
 def main():
     """Where the main loop is run -Marcus"""
@@ -60,7 +60,8 @@ def loadDatabase(filename: str = "musicrecplus.txt") -> dict:
     """loads the database from the file named musicrecplus.txt,
     if it exists. Otherwise it creates the file. Checks if user is
     in the database, if not it adds to database along with their preferences- Marcus"""
-
+    filename = Path('musicrecplus.txt')
+    filename.touch(exist_ok=True)  # will create file, if it exists will do nothing
     database = {}
     with open(filename, "r") as file:
         for line in file:
