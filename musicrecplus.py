@@ -38,7 +38,7 @@ def main():
         if option == "e":
             database[username] = enterPreferences()
         elif option == "r":
-            pass
+            recommendations(username, database)
         elif option == "p":
             print(mostPopular(database))
         elif option == "h":
@@ -46,7 +46,7 @@ def main():
         elif option == "m":
             mostLikesUser(database)
         elif option == "q":
-            return
+            saveDatabase(database, 'musicrecplus.txt')
         else:
             print("That is not an option.")
 
@@ -60,7 +60,7 @@ def loadDatabase(filename: str = "musicrecplus.txt") -> dict:
     """loads the database from the file named musicrecplus.txt,
     if it exists. Otherwise it creates the file. Checks if user is
     in the database, if not it adds to database along with their preferences- Marcus"""
-    filename = Path('musicrecplus.txt')
+    filename = Path(filename)
     filename.touch(exist_ok=True)  # will create file, if it exists will do nothing
     database = {}
     with open(filename, "r") as file:
@@ -79,9 +79,37 @@ def recommendations(username: str, database: dict) -> tuple:
     """
     Takes in username and database dict.
     Returns a tuple of artist names.
+    -Samuel Friedman
     """
-    # TODO Implement recommendations
-    pass
+    # gets the users artist
+    user_artists = database[username]
+    # initates best_user
+    best_user = ['', 0]
+
+    # iterates through other users
+    for other_user in database:
+        # skips user and names with $
+        if other_user == username or '$' in other_user:
+            continue
+        similar_artists = 0
+        # iterates through the preferred artists of other users
+        for other_artist in database[other_user]:
+            # iterates through users preferred artists
+            for user_artist in user_artists:
+                # adds 1 to similar artist if artists of user and other match
+                if other_artist == user_artist:
+                    similar_artists+=1
+        # makes best_user the most similar user that has reccomendations to give
+        if similar_artists > best_user[1] and similar_artists != len(database[other_user]):
+            best_user = [other_user, similar_artists]
+
+    print(best_user)
+    # iterates through artists of the most similar user
+    for rec_artist in database[best_user[0]]:
+        # if rec_artist is not part of the user_artist print it
+        if rec_artist not in user_artists:
+            print(rec_artist)
+
 
 
 def mostPopularHelper(userDict):
