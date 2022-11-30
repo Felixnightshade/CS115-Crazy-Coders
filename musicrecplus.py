@@ -48,6 +48,7 @@ def main():
             mostLikesUser(database)
         elif option == "q":
             saveDatabase(database, 'musicrecplus.txt')
+            break
         elif option =='s':
             showPreferences(username, database)
         else:
@@ -201,14 +202,25 @@ def saveDatabase(database: dict, filename: str) -> None:
     Takes in a database dict and file name.
     Saves the database dict to the file according to the spec.
     """
-    # TODO Implement saveDatabase
-    pass
+    word = ''
+    for key in database:
+        word = word + key + ":"
+        for value in database[key]:
+            if value == database[key][-1]:
+                word = word + value
+                continue
+            word = word + value + ','
+        word += '\n'
+
+    text_file = open(filename, "w")
+    n = text_file.write(word)
+    text_file.close()
 
 def showPreferences(userName, userDict):
     '''
     Extra credit, shows current users preferences -Marcus
     '''
-    print(userDict[userName])
+    [print(x) for x in userDict[userName]]
 
 """
 DATABASE SPEC
