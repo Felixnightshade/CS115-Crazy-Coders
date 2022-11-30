@@ -201,6 +201,7 @@ def saveDatabase(database: dict, filename: str) -> None:
     """
     Takes in a database dict and file name.
     Saves the database dict to the file according to the spec.
+    -Sam Friedman
     """
     word = ''
     for key in database:
