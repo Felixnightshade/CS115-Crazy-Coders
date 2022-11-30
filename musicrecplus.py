@@ -11,6 +11,7 @@ Team: Crazy Coders
 """
 from pathlib import Path
 
+
 def main():
     """Where the main loop is run -Marcus"""
     """"""
@@ -25,14 +26,14 @@ def main():
     while True:
         option = input(
             """
-            Enter a letter to choose an option:\n
-            \te - Enter preferences\n
-            \tr - Get recommendations\n
-            \tp - Show most popular artists\n
-            \th - How popular is the most popular\n
-            \tm - Which user has the most likes\n
-            \tq - Save and quit\n
-            \ts - Show Preferences\n
+            Enter a letter to choose an option:
+            \te - Enter preferences
+            \tr - Get recommendations
+            \tp - Show most popular artists
+            \th - How popular is the most popular
+            \tm - Which user has the most likes
+            \tq - Save and quit
+            \ts - Show Preferences
             """
         )
 
@@ -47,8 +48,8 @@ def main():
         elif option == "m":
             mostLikesUser(database)
         elif option == "q":
-            saveDatabase(database, 'musicrecplus.txt')
-        elif option =='s':
+            saveDatabase(database, "musicrecplus.txt")
+        elif option == "s":
             showPreferences(username, database)
         else:
             print("That is not an option.")
@@ -87,12 +88,12 @@ def recommendations(username: str, database: dict) -> tuple:
     # gets the users artist
     user_artists = database[username]
     # initates best_user
-    best_user = ['', 0]
+    best_user = ["", 0]
 
     # iterates through other users
     for other_user in database:
         # skips user and names with $
-        if other_user == username or '$' in other_user:
+        if other_user == username or "$" in other_user:
             continue
         similar_artists = 0
         # iterates through the preferred artists of other users
@@ -101,21 +102,22 @@ def recommendations(username: str, database: dict) -> tuple:
             for user_artist in user_artists:
                 # adds 1 to similar artist if artists of user and other match
                 if other_artist == user_artist:
-                    similar_artists+=1
+                    similar_artists += 1
         # makes best_user the most similar user that has reccomendations to give
-        if similar_artists > best_user[1] and similar_artists != len(database[other_user]):
+        if similar_artists > best_user[1] and similar_artists != len(
+            database[other_user]
+        ):
             best_user = [other_user, similar_artists]
 
-    #print(best_user)
-    if best_user[0]=='':
-        print('No recommendations available at this time')
+    # print(best_user)
+    if best_user[0] == "":
+        print("No recommendations available at this time")
     else:
         # iterates through artists of the most similar user
         for rec_artist in database[best_user[0]]:
             # if rec_artist is not part of the user_artist print it
             if rec_artist not in user_artists:
                 print(rec_artist)
-
 
 
 def mostPopularHelper(userDict):
@@ -204,11 +206,13 @@ def saveDatabase(database: dict, filename: str) -> None:
     # TODO Implement saveDatabase
     pass
 
+
 def showPreferences(userName, userDict):
-    '''
+    """
     Extra credit, shows current users preferences -Marcus
-    '''
+    """
     print(userDict[userName])
+
 
 """
 DATABASE SPEC
