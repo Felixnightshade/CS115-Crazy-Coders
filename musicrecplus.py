@@ -32,6 +32,7 @@ def main():
             \th - How popular is the most popular\n
             \tm - Which user has the most likes\n
             \tq - Save and quit\n
+            \ts - Show Preferences\n
             """
         )
 
@@ -47,6 +48,8 @@ def main():
             mostLikesUser(database)
         elif option == "q":
             saveDatabase(database, 'musicrecplus.txt')
+        elif option =='s':
+            showPreferences(username, database)
         else:
             print("That is not an option.")
 
@@ -201,6 +204,11 @@ def saveDatabase(database: dict, filename: str) -> None:
     # TODO Implement saveDatabase
     pass
 
+def showPreferences(userName, userDict):
+    '''
+    Extra credit, shows current users preferences -Marcus
+    '''
+    print(userDict[userName])
 
 """
 DATABASE SPEC
