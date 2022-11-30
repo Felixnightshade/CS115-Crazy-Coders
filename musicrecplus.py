@@ -103,12 +103,15 @@ def recommendations(username: str, database: dict) -> tuple:
         if similar_artists > best_user[1] and similar_artists != len(database[other_user]):
             best_user = [other_user, similar_artists]
 
-    print(best_user)
-    # iterates through artists of the most similar user
-    for rec_artist in database[best_user[0]]:
-        # if rec_artist is not part of the user_artist print it
-        if rec_artist not in user_artists:
-            print(rec_artist)
+    #print(best_user)
+    if best_user[0]=='':
+        print('No recommendations available at this time')
+    else:
+        # iterates through artists of the most similar user
+        for rec_artist in database[best_user[0]]:
+            # if rec_artist is not part of the user_artist print it
+            if rec_artist not in user_artists:
+                print(rec_artist)
 
 
 
