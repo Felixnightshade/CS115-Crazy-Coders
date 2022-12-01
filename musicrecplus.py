@@ -211,9 +211,8 @@ def saveDatabase(database: dict, filename: str) -> None:
         dbstr = str(dbstr[:-1]) + "\n"
     dbstr = str(dbstr[:-1])
 
-    text_file = open(filename, "w")
-    n = text_file.write(dbstr)
-    text_file.close()
+    with open(filename, "w") as file:
+        file.write(dbstr)
 
 
 def showPreferences(userName, userDict):
