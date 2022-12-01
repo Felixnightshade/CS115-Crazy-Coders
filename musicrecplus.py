@@ -203,18 +203,16 @@ def saveDatabase(database: dict, filename: str) -> None:
     Saves the database dict to the file according to the spec.
     -Collin Smith
     """
-    word = ""
-    for key in sorted(database):
-        word = word + key + ":"
-        for value in database[key]:
-            if value == database[key][-1]:
-                word = word + value
-                continue
-            word = word + value + ","
-        word += "\n"
+    dbstr = ""
+    for user in sorted(database):
+        dbstr = dbstr + user + ":"
+        for artist in database[user]:
+            dbstr = dbstr + artist + ","
+        dbstr = str(dbstr[:-1]) + "\n"
+    dbstr = str(dbstr[:-1])
 
     text_file = open(filename, "w")
-    n = text_file.write(word)
+    n = text_file.write(dbstr)
     text_file.close()
 
 
