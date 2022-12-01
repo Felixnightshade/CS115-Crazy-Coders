@@ -18,23 +18,21 @@ def main():
 
     database = loadDatabase()
     username = input(
-        "Enter your name (put a $ symbol after your name if you wish your preferences to remain private):\n"
+        "Enter your name (put a $ symbol after your name if you wish your preferences to remain private): "
     )
     if username not in database:
         database[username] = enterPreferences()
 
     while True:
         option = input(
-            """
-            Enter a letter to choose an option:
-            \te - Enter preferences
-            \tr - Get recommendations
-            \tp - Show most popular artists
-            \th - How popular is the most popular
-            \tm - Which user has the most likes
-            \tq - Save and quit
-            \ts - Show Preferences
-            """
+            """Enter a letter to choose an option:
+e - Enter preferences
+r - Get recommendations
+p - Show most popular artists
+h - How popular is the most popular
+m - Which user has the most likes
+q - Save and quit
+s - Show Preferences"""
         )
 
         if option == "e":
@@ -112,7 +110,7 @@ def recommendations(username: str, database: dict) -> tuple:
 
     # print(best_user)
     if best_user[0] == "":
-        print("No recommendations available at this time")
+        print("No recommendations available at this time.")
     else:
         # iterates through artists of the most similar user
         for rec_artist in database[best_user[0]]:
@@ -203,10 +201,10 @@ def saveDatabase(database: dict, filename: str) -> None:
     """
     Takes in a database dict and file name.
     Saves the database dict to the file according to the spec.
-    -Sam Friedman
+    -Collin Smith
     """
     word = ""
-    for key in database:
+    for key in sorted(database):
         word = word + key + ":"
         for value in database[key]:
             if value == database[key][-1]:
