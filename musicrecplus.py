@@ -14,7 +14,10 @@ from pathlib import Path
 
 def main():
     """Where the main loop is run -Marcus"""
-    """"""
+    """
+    Contains all of the hooks to functionality
+    -Gabriel
+    """
 
     database = loadDatabase()
     username = input(
